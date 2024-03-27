@@ -9,7 +9,7 @@ export function process(importJobId: number): void {
     try {
         const importJob = importJobRepository.getImportJobById(importJobId);
         const lock      = lockFactory.createLock('import_' + importJob.importId);
-        let   customer  = customerRepository.getCustomerById(importJob.customerId);
+        const customer  = customerRepository.getCustomerById(importJob.customerId);
 
         customersApi.synchronizeData(customer);
 

@@ -14,7 +14,7 @@ export function process(importJobId: number): void {
     try {
         // fetch data from database
         const importJob = importJobRepository.getImportJobById(importJobId);
-        let customer = customerRepository.getCustomerById(importJob.customerId);
+        const customer  = customerRepository.getCustomerById(importJob.customerId);
 
         // synchronize customer object in 3rd party api call and save synchronized data
         // (to multiple tables, for example customers / customers_feedbacks / customers_tags)
