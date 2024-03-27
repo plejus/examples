@@ -4,7 +4,7 @@ import {customersApi} from "./service/customersApi";
 import {notification} from "./service/notification";
 
 /**
- * Warning: This script could be done by multiple workers in the same time
+ * Warning: Remember that this script could be done by multiple workers in the same time
  * @param importJobId
  */
 export function process(importJobId: number): void {

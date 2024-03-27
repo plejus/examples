@@ -3,7 +3,11 @@ import {customersApi} from "./service/customersApi";
 import {notification} from "./service/notification";
 
 /**
- * Warning: This script could be done by multiple workers in the same time
+ * Lets skip part with the queue system - we assume that all jobs are queued and our workers receives importJobId parameter
+ *
+ * If code throw some exception then queue system will reschedule it max 3x and then mark importJob as failed
+ *
+ * Warning: Remember that this script could be done by multiple workers in the same time
  * @param importJobId
  */
 export function process(importJobId: number): void {
