@@ -14,7 +14,7 @@ Import customers from CSV and synchronize some customer extra data separately in
 
 1. This is long running process that is done asynchronously in multiple workers (1 customer = 1 job)
 2. This process save his state in database, so we can check current progress (for example **7,099 / 20,390 customers synchronized**)
-3. This process saves changes to multiple tables so it must be done in single Database Transaction
+3. This process saves changes to multiple tables so it must be done in single Database Transaction for every job (we can not save partially synchronized customer)
 3. On import complete we have to send notification to user / admin
 
 ## Solution Draft
