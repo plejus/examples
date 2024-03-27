@@ -1,5 +1,11 @@
 # The Problem
 
+## Description
+This particular problem will show how to use Locks during processes that
+could be interrupted by other processes that operates on the same dataset.
+
+It will also show how to avoid confusion with SQL transactions.
+
 ## Assumptions
 
 Example Process:

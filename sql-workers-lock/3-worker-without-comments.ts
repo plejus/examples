@@ -3,7 +3,7 @@ import {lockFactory} from "./service/lockFactory";
 import {customersApi} from "./service/customersApi";
 import {notification} from "./service/notification";
 
-export function process(importJobId: number): boolean {
+export function process(importJobId: number): void {
     databaseConnection.startTransaction();
 
     try {
@@ -24,9 +24,8 @@ export function process(importJobId: number): boolean {
         lock.release;
 
         databaseConnection.commitTransaction();
-        return true;
     } catch (exception) {
         databaseConnection.rollbackTransaction();
-        return false;
+        throw exception;
     }
 }

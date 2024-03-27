@@ -6,7 +6,7 @@ import {notification} from "./service/notification";
  * Warning: This script could be done by multiple workers in the same time
  * @param importJobId
  */
-export function process(importJobId: number): boolean {
+export function process(importJobId: number): void {
     // We will save synchronized data to multiple tables so we have to do everything in single transaction
     databaseConnection.startTransaction();
 
@@ -28,10 +28,9 @@ export function process(importJobId: number): boolean {
         }
 
         databaseConnection.commitTransaction();
-        return true;
     } catch (exception) {
-        // in case of any error rollback entire transaction and return negative status, so task will be re-queued
+        // in case of any error rollback entire transaction before throwing error
         databaseConnection.rollbackTransaction();
-        return false;
+        throw exception;
     }
 }

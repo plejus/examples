@@ -3,7 +3,7 @@ import {lockFactory} from "./service/lockFactory";
 import {customersApi} from "./service/customersApi";
 import {notification} from "./service/notification";
 
-export function process(importJobId: number): boolean {
+export function process(importJobId: number): void {
     const importJob = importJobRepository.getImportJobById(importJobId);
     const lock      = lockFactory.createLock('import_' + importJob.importId);
     let   customer  = customerRepository.getCustomerById(importJob.customerId);
@@ -14,7 +14,7 @@ export function process(importJobId: number): boolean {
         databaseConnection.commitTransaction();
     } catch (exception) {
         databaseConnection.rollbackTransaction();
-        return false;
+        throw exception;
     }
 
     lock.acquire(true);
@@ -26,8 +26,6 @@ export function process(importJobId: number): boolean {
     }
 
     lock.release;
-
-    return true;
 }
 
 /**

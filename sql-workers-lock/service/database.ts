@@ -8,10 +8,6 @@ export const databaseConnection = {
     rollbackTransaction(): void {
         console.log('transaction rollback');
     },
-    hasActiveTransaction(): boolean {
-        console.log('transaction check');
-        return true;
-    },
 }
 
 export const customerRepository = {
