@@ -8,11 +8,11 @@ export function process(importJobId: number): boolean {
 
     try {
         const importJob = importJobRepository.getImportJobById(importJobId);
-        let customer = customerRepository.getCustomerById(importJob.customerId);
+        const lock      = lockFactory.createLock('import_' + importJob.importId);
+        let   customer  = customerRepository.getCustomerById(importJob.customerId);
 
         customersApi.synchronizeData(customer);
 
-        const lock = lockFactory.createLock('import_' + importJob.importId);
         lock.acquire(true);
 
         importJobRepository.saveImportJobStatus(importJob, 'done');
