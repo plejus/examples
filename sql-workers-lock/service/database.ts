@@ -33,7 +33,7 @@ export const importJobRepository = {
     },
 }
 
-type ImportJob = {
+export type ImportJob = {
     id: number,
     importId: number,
     customerId: number,
